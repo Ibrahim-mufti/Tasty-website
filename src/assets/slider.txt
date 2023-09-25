@@ -1,0 +1,149 @@
+<template>
+    <section id="slider-sect" class="py-32">
+        <div class="container mx-auto max-md:!w-75 max-sm:!w-30">
+                <div class="flex flex-row max-md:flex-col">
+                    <div class="flex flex-col w-1/2 max-md:absolute">
+                        <div class="mb-32 w-full max-md:w-full" >
+                            <h2 class=" headings text-3xl font-normal mb-3">Our Best & Unique Menu </h2>
+                            <p class="color text-lg">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ab debitis sit itaque totam, a maiores nihil, nulla magnam porro minima officiis!</p>
+                        </div>
+                        <div class="flex justify-end max-md:justify-start max-md:z-10 max-md:relative max-md:top-[250px] max-sm:top-[500px] max-md:left-5">
+                            <div id="1" class="active-text w-2/3 p-5 max-md:w-full max-md:bg-black max-md:rounded-lg">
+                                <h2 class="text-3xl font-bold mb-3 max-sm:text-2xl">Crab with Curry Sources</h2>
+                                <p class="color text-lg mb-6 max-sm:hidden ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt eveniet quae, numquam magnam doloribus eligendi ratione rem, consequatur quos natus voluptates est totam magni! Nobis a temporibus, ipsum repudiandae dolorum.</p>
+                                <a href="#" class="btn max-sm:hidden ">Learn More</a>
+                            </div>
+                            <div id="2" class=" hidden-txt w-2/3 p-5 max-md:w-full max-md:bg-black max-md:rounded-lg">
+                                <h2 class="text-3xl font-bold mb-3 max-sm:text-2xl">Tuna <em>&</em> Roast Beef</h2>
+                                <p class="color text-lg mb-6 max-sm:hidden ">Ink is a free html5 bootstrap and a multi-purpose template perfect for any type of websites. A combination of a minimal and modern design template. The features are big slider on homepage, smooth animation, product listing and many more.</p>
+                                <a href="#" class="btn max-sm:hidden ">Learn More</a>
+                            </div>
+                            <div id="3" class=" hidden-txt w-2/3 p-5 max-md:w-full max-md:bg-black max-md:rounded-lg">
+                                <h2 class="text-3xl font-bold mb-3 max-sm:text-2xl">Egg with Mushrooms</h2>
+                                <p class="color text-lg mb-6 max-sm:hidden ">Ink is a free html5 bootstrap and a multi-purpose template perfect for any type of websites. A combination of a minimal and modern design template. The features are big slider on homepage, smooth animation, product listing and many more.</p>
+                                <a href="#" class="btn max-sm:hidden ">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                <div class="w-1/2 -mr-16 ml-16 max-md:w-full max-md:mx-0 max-md:relative">
+                    <ul class="flex flex-row mb-3 justify-end">
+                        <li><a @click="Activate" href="#img-1" class="link-active points mr-2">1</a></li>
+                        <li><a @click="Activate" href="#img-2" class="points">2</a></li>
+                        <li><a @click="Activate" href="#img-3" class="points ml-2">3</a></li>
+                    </ul>
+                    <div id="images">
+                        <img class="active" id="img-1" src="./Images/gallery_7.jpeg"/>
+                        <img class="hidden-cnt" id="img-2" src="./Images/gallery_6.jpeg"/>
+                        <img class="hidden-cnt" id="img-3" src="./Images/gallery_5.jpeg"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+<script>
+    export default {
+        name : 'Slider',
+        methods:{
+            Activate(event){
+                event.preventDefault();
+                // Removing Currently active Class
+                let btn = document.querySelector('.link-active')
+                btn.classList.remove("link-active")
+                document.getElementById(btn.text).classList.remove('active-text')
+                document.getElementById(btn.text).classList.add('hidden-txt')
+                document.getElementById(btn.getAttribute("href").replace("#",'')).classList.remove("active")
+                document.getElementById(btn.getAttribute("href").replace("#",'')).classList.add("hidden-cnt")
+
+                // Adding classes to both pointer and Text
+                event.target.classList.add("link-active")
+                let id = event.target.text
+                let text_id = document.getElementById(id)
+                text_id.classList.remove('hidden-txt')
+                text_id.classList.add("active-text")
+
+                //Adding class to the Img
+                let img_id = event.target.getAttribute('href').replace('#',"")
+                let img = document.getElementById(img_id)
+                img.classList.remove("hidden-cnt")
+                img.classList.add('active')
+            }
+        }
+    }
+</script>
+    
+<style scoped>
+    .active{
+        display: block;
+        animation:fadeIn 2s ease forwards;
+    }
+    @keyframes fadeIn {
+        0% { opacity:0;}
+        100% {opacity:1;}
+    }
+    @keyframes slideup {
+        0% {
+            transform: translateY(110px);
+            opacity:0;
+        }
+        100% {
+            transform: translateY(0px);
+            opacity:1;
+        }  
+    }
+
+    .active-text{
+        display:block;
+        animation:slideup 1.5s forwards, fadeIn 3s ease forwards;
+    }
+    .hidden-txt{
+        display:none;
+    }
+    .hidden-cnt{
+        display: none;
+    }
+    .points {
+        background-color: red;
+        padding-left: 3px;
+        padding-right: 5px;
+        color: transparent;
+        border-radius: 50%; 
+        font-size: 8px;
+        cursor: pointer;
+        position: relative;
+        top:0;
+    } 
+    .link-active{
+        background-color: black;
+        border:2px solid white;
+        animation:fadeIn 1s ease backwards;
+    }
+    #slider-sect img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .btn{
+        text-transform: uppercase;
+        border:2px solid red;
+        padding: 10px;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+    .btn:hover{
+        background-color: red;
+        transition: all .5s ease;
+    }
+    @media (max-width: 640px) { /* Adjust the max-width as needed */
+    .points[href="#img-2"] {
+        position: relative; /* Add this line */
+        top: 0; /* Add this line */
+    }
+    #images{
+        height: 100vw;
+    }
+}
+
+</style>
